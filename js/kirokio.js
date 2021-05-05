@@ -122,7 +122,7 @@ $.get("data/localwiki.csv", function(localwiki) {
 //地図の描写
 $(function () {
     map = new L.map('map', {
-        maptiks_id: 'Maps API Leaflet Example',
+        maptiks_id: "kirokio-wako",
         center: center,
         zoom: zoom,
         zoomControl: true,
