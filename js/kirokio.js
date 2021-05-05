@@ -5,11 +5,12 @@
 //! howml.org
 
 // ベースレイヤー(MAP)の設定
-maptiks.trackcode='cd02c3aa-6877-4413-b792-edaa23a83b14';
+maptiks.trackcode='c6169644-4eef-4cf5-ac8f-1587f849fb32';
+
 var map;
-var zoom = 12;
-var center = new L.LatLng(42.0754 , 140.5769);
-var api_key = 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpcGg5dDdjdDAxMmt1OW5qdzUzMWMxamUifQ.8nfM3INfFUehVzKhmNOrJQ';
+var zoom = 15;
+var center = new L.LatLng(35.78146,139.60588);
+var api_key = 'pk.eyJ1Ijoib3RremgiLCJhIjoiY2tvYmQxa3VvMnluYTJ3bHB2b3FoMXZxdiJ9.AkTA5WjX489n_f87JTgu4Q';
 var mierune = new L.tileLayer('https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png', {
     attribution: "Maptiles by <a href='http://mierune.co.jp/' target='_blank'>MIERUNE</a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'>OpenStreetMap</a> contributors, under ODbL."
 });
@@ -25,34 +26,6 @@ var m_CS = new L.tileLayer('http://kouapp.main.jp/csmap/tile/hokkaido/{z}/{x}/{y
 	attribution: 'この地図の作成に当たっては、国土地理院長の承認を得て、同院発行の基盤地図情報を使用した。(承認番号 平28情使 第830号)',
     opacity: 0.5 
     });
-
-//KMLの読み込み(森町の範囲)
-var Map_KML_Style = {
-    "color": "#c46200",
-    "weight": 1.5,
-    "opacity": 0.6,
-    "fillColor": "#ef7700",
-    "fillOpacity": 0.2
-};
-var Map_KML_Style_old = {
-    "color": "#c46200",
-    "weight": 1.5,
-    "opacity": 0.6,
-    "fillColor": "#ef7700",
-    "fillOpacity": 0.2
-};
-var Map_KML_Property1 = L.geoJson(null, {
-style: Map_KML_Style 
-});
-var Map_KML_Property2 = L.geoJson(null, {
-style: Map_KML_Style_old 
-});
-var Map_KML_Property3 = L.geoJson(null, {
-style: Map_KML_Style_old 
-});
-var Map_KML_Mori = omnivore.kml('data/mori.kml', null, Map_KML_Property1); 
-var Map_KML_MoriOld = omnivore.kml('data/MoriOld.kml', null, Map_KML_Property2); 
-var Map_KML_SawaraOld = omnivore.kml('data/SawaraOld.kml', null, Map_KML_Property3); 
    
 //minimapの表示
  var o_std_mini = new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -153,20 +126,16 @@ $(function () {
         center: center,
         zoom: zoom,
         zoomControl: true,
-        layers: [mierune, groupKirokio, groupLocalwiki]
+        layers: [osm, groupKirokio, groupLocalwiki]
     });
     map.attributionControl.setPrefix('<a href="http://leafletjs.com">Leaflet</a>');
     var baseLayer = {
-    "MIERUNE": mierune,
-    "OSM": osm,
-    "衛星写真": hybrid,
+        "OSM": osm,
+        "MIERUNE": mierune,
     };
     var overlayMaps = {
     "写真": groupKirokio,
-    "Localwiki": groupLocalwiki,
-    "現在の森町範囲を表示": Map_KML_Mori,
-    "旧森町範囲を表示": Map_KML_MoriOld,
-    "旧砂原町範囲を表示": Map_KML_SawaraOld,
+    "Web": groupLocalwiki,
     "CS立体図を重ねる": m_CS,
     };
     L.control.scale().addTo(map);
